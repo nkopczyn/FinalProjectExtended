@@ -31,23 +31,58 @@ public class TrailController {
         return trailService.getAllTrails();
     }
 
+    @GetMapping("/delete/{trailId}")
+    public String deleteTrail(@PathVariable Long trailId) {
+        Trail trailToDel = trailService.findTrailById(trailId);
+        trailService.deleteTrail(trailToDel);
+        return "Trail number " + trailId + " deleted";
+    }
 
-    @PostMapping("/add-post")
-    public String addTrail(@RequestBody TrailDTO trailRequest) {
-        // Pobierz punkty startowy i końcowy na podstawie przesłanych ID
+    @PostMapping("/update-post/{trailId}")
+    public String updateTrail(@PathVariable Long trailId,
+                              @RequestBody TrailDTO trailRequest) {
+        Trail trailToUpdate = trailService.findTrailById(trailId);
+
+        if (trailToUpdate == null) {
+            return "Trail not found";
+        }
+
         Point start = pointService.getPointById(trailRequest.getStartPointId());
         Point finish = pointService.getPointById(trailRequest.getFinishPointId());
 
-        // trail name add
+        MountRange mountRange = mountRangeService.getMountRangeByName(trailRequest.getMountRangeName());
+        double length = trailService.calculateTrailLength(start, finish);
+        Category category = trailService.determineTrailCategory(length);
+
+
+        trailToUpdate.setName(trailRequest.getTrailName());
+        trailToUpdate.setStart(start);
+        trailToUpdate.setFinish(finish);
+        trailToUpdate.setMountRange(mountRange);
+        trailToUpdate.setLength(length);
+        trailToUpdate.setCategory(category);
+
+        // ustawienie atrybutów
+        trailService.updateTrail(trailToUpdate);
+
+        return "Trail number " + trailId + " updated";
+    }
+
+
+    @PostMapping("/add-post")
+    public String addTrail(@RequestBody TrailDTO trailRequest) {
+
+        // pobieranie atrybutów
+        Point start = pointService.getPointById(trailRequest.getStartPointId());
+        Point finish = pointService.getPointById(trailRequest.getFinishPointId());
         String trailName = trailRequest.getTrailName();
         MountRange mountRange = mountRangeService.getMountRangeByName(trailRequest.getMountRangeName());
 
-        // Oblicz długość trasy na podstawie współrzędnych punktów
+        // category +  length obliczanie
         double length = trailService.calculateTrailLength(start, finish);
-
-        // Ustal kategorię na podstawie długości
         Category category = trailService.determineTrailCategory(length);
 
+        // ustawianie atrybutów
         Trail trail = new Trail();
         trail.setName(trailName);
         trail.setStart(start);

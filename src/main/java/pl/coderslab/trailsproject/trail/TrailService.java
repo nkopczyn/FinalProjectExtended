@@ -27,6 +27,18 @@ public class TrailService {
         trailRepository.save(trail);
     }
 
+    public void deleteTrail(Trail trail) {
+        trailRepository.delete(trail);
+    }
+
+    public Trail findTrailById(Long id) {
+        return trailRepository.findById(id).orElse(null);
+    }
+
+    public void updateTrail(Trail trail) {
+        trailRepository.save(trail);
+    }
+
 
     public double calculateTrailLength(Point start, Point finish) {
         double lat1 = Math.toRadians(start.getLatitude());
