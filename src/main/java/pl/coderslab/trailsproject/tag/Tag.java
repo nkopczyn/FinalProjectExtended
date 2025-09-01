@@ -1,5 +1,6 @@
 package pl.coderslab.trailsproject.tag;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +17,11 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
 
     // mappedBy - wskazanie, że właścicielem relaji jest Trail
     @ManyToMany(mappedBy = "tags")
     private List<Trail> trails;
+    // podczas serializacji tylko z jednej strony relacja będzie serializowana
 }
 

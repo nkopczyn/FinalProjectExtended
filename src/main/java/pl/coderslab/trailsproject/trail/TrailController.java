@@ -67,7 +67,7 @@ public class TrailController {
         return "Trail number " + trailId + " deleted";
     }
 
-    @PostMapping("/update-post/{trailId}")
+    @PostMapping("/update-post-trail/{trailId}")
     public String updateTrail(@PathVariable Long trailId,
                               @RequestBody TrailDTO trailRequest) {
         Trail trailToUpdate = trailService.findTrailById(trailId);
@@ -98,7 +98,7 @@ public class TrailController {
     }
 
 
-    @PostMapping("/add-post")
+    @PostMapping("/add-post-trail")
     public String addTrail(@RequestBody TrailDTO trailRequest) {
 
         // pobieranie atrybutów

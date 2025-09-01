@@ -1,5 +1,7 @@
 package pl.coderslab.trailsproject.trail;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +39,7 @@ public class Trail {
     private MountRange mountRange;
 
     @ManyToMany
+    @JsonIgnore
     private List<Tag> tags;
 
 }
