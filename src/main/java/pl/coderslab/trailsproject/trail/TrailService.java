@@ -6,6 +6,9 @@ import pl.coderslab.trailsproject.category.CategoryRepository;
 import pl.coderslab.trailsproject.category.CategoryService;
 import pl.coderslab.trailsproject.point.Point;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -54,20 +57,28 @@ public class TrailService {
                 * Math.pow(Math.sin(dlon / 2),2);
 
         double c = 2 * Math.asin(Math.sqrt(a));
-        double r = 6371; // promień Ziemi w km
+        double r = 6371; // earth radius
 
-        return c * r;
+        double result = c*r;
+        result = Math.round(result * 100.0) / 100.0;
+
+        // result in km
+        return result;
     }
 
 
     public Category determineTrailCategory(double length) {
-        if (length < 5)
+        if (length < 20)
             return categoryService.findByIntensity("easy");
-        else if (length < 15)
+        else if (length < 50)
             return categoryService.findByIntensity("mid");
         else
             return categoryService.findByIntensity("hard");
     }
 
+
+    public List<Trail> sortTrailsByCategory (String intensity) {
+        return trailRepository.findByCategory_IntensityOrderByLengthAsc(intensity);
+    }
 
 }

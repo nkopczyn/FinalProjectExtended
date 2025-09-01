@@ -1,19 +1,19 @@
-#POST http://localhost:8080/trails/add-post
-#Content-Type: application/json
-#
-#{
-#  "trailName": "śnieżka",
-#  "startPointId": 2,
-#  "finishPointId": 3,
-#  "mountRangeName": "Sudety"
-#}
-
-POST http://localhost:8080/trails/update-post/2
+POST http://localhost:8080/trails/add-post
 Content-Type: application/json
 
 {
-"trailName": "rysy",
-"startPointId": 2,
-"finishPointId": 4,
-"mountRangeName": "Sudety"
+  "trailName": "rysy",
+  "startPointId": 3,
+  "finishPointId": 4,
+  "mountRangeName": "Tatry"
 }
+
+//POST http://localhost:8080/trails/update-post/2
+//Content-Type: application/json
+//
+//{
+//"trailName": "rysy",
+//"startPointId": 2,
+//"finishPointId": 4,
+//"mountRangeName": "Sudety"
+//}

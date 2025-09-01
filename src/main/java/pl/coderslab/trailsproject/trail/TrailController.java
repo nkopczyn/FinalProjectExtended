@@ -8,7 +8,10 @@ import pl.coderslab.trailsproject.mountrange.MountRangeService;
 import pl.coderslab.trailsproject.point.Point;
 import pl.coderslab.trailsproject.point.PointService;
 
+import javax.print.DocFlavor;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/trails")
@@ -29,6 +32,32 @@ public class TrailController {
     @GetMapping("/all")
     public List<Trail> showTrails() {
         return trailService.getAllTrails();
+    }
+
+    @GetMapping("/summary")
+    public String showTrailsSummary() {
+        StringBuilder summary = new StringBuilder();
+
+        List<Trail> trails = trailService.getAllTrails();
+
+        // Trail::getLength - pobiera atrybut Length dla każdego trail
+        double totalLength = trails.stream().mapToDouble(Trail::getLength).sum();
+        List<String> distinctMountRanges = trails.stream().map(Trail::getMountRange).map(MountRange::getName)
+                .distinct().collect(Collectors.toList());
+
+        // build summary
+        summary.append("Total number of trails: ").append(trails.size());
+        summary.append("<br>");
+        summary.append("Total length in km: ").append(totalLength);
+        summary.append("<br>");
+        summary.append("Mountain ranges mentioned: ").append(distinctMountRanges);
+
+        return summary.toString();
+    }
+
+    @GetMapping("/get/{trailId}")
+    public Trail getTrail(@PathVariable Long trailId) {
+        return trailService.findTrailById(trailId);
     }
 
     @GetMapping("/delete/{trailId}")
@@ -94,6 +123,24 @@ public class TrailController {
         trailService.addTrail(trail);
 
         return "Trail added via post";
+    }
+
+    // find trails by category name, sorted from shortest to longest
+    @GetMapping("/category/{catName}")
+    public String showTrailsByCategory(@PathVariable String catName) {
+        List<Trail> foundTrails = trailService.sortTrailsByCategory(catName);
+        StringBuilder result = new StringBuilder();
+        result.append("For category ").append(catName).append(" found ").append(foundTrails.size()).append(" trail(s): ");
+        result.append("<br>");
+
+        for(Trail t : foundTrails) {
+            result.append("Trail number ").append(t.getId()).append(", ");
+            result.append(t.getName()).append(", ");
+            result.append(t.getLength()).append(" km");
+            result.append("<br>");
+        }
+
+        return result.toString();
     }
 
 }
