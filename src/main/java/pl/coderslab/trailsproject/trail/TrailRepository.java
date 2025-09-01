@@ -10,4 +10,6 @@ public interface TrailRepository extends JpaRepository<Trail, Long> {
 
     public List<Trail> findByCategory_IntensityOrderByLengthAsc(String intensity);
 
+    Trail findFirstByTags_IdOrderByLengthDesc(Long tagId);
+
 }

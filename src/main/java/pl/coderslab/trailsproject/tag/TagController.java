@@ -28,6 +28,7 @@ public class TagController {
         return tagService.findTagById(tagId);
     }
 
+
     @GetMapping("/delete/{tagId}")
     public String deleteTag(@PathVariable Long tagId) {
         tagService.deleteTagById(tagId);
@@ -106,7 +107,17 @@ public class TagController {
         return "Tag updated";
     }
 
+    // dla danego trail wyświetli wszystkie tagi
+    @GetMapping("/trails/{tagId}")
+    public List<Trail> getTrailsForTag(@PathVariable Long tagId) {
+        Tag tag = tagService.findTagById(tagId);
+        return tag.getTrails();
+    }
 
-
+    // najdłuższy trail dla danego tagu
+    @GetMapping("/longest-trail/{tagId}")
+    public Trail getLongestTrailForTag(@PathVariable Long tagId) {
+        return tagService.findLongestTrailByTagId(tagId);
+    }
 
 }
