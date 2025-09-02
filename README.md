@@ -20,7 +20,9 @@ Funkcjonalności dla encji Tag:
 - Znalezienie najdłuższego Trail dla podanego Tagu ID (GET)
 
 Przykłady:
-Dodawanie szlaku za pomocą TrailDTO:
+
+- Dodawanie szlaku za pomocą TrailDTO:
+
 POST http://localhost:8080/trails/add-post
 Content-Type: application/json
 
@@ -36,3 +38,8 @@ Content-Type: application/json
   },
   "mountRangeName": "Himalaje"
 }
+
+Dodatkowe informacje:
+- Przy dodawaniu nowych szlaków, program sprawdza czy podane Start i End Point już istnieją, w przeciwnym przypadku tworzy takie pozycje. Program 
+działa tak samo przy zczytywaniu pasma górskiego
+- 

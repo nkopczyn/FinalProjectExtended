@@ -13,4 +13,15 @@ public class MountRangeService {
     public MountRange getMountRangeByName(String name) {
         return mountRangeRepository.getMountRangeByName(name);
     }
+
+    // sprawdzanie czy pasmo istnieje, jeśli nie, dodaje je
+    public MountRange getOrCreateMountRange(String mountRangeName) {
+        MountRange existing = mountRangeRepository.getMountRangeByName(mountRangeName);
+        if (existing != null) {
+            return existing;
+        }
+        MountRange newMountRange = new MountRange();
+        newMountRange.setName(mountRangeName);
+        return mountRangeRepository.save(newMountRange);
+    }
 }

@@ -131,7 +131,7 @@ public class TrailController {
         Point end = pointService.getOrCreatePoint(trailRequest.getEndPoint());
 
         String trailName = trailRequest.getTrailName();
-        MountRange mountRange = mountRangeService.getMountRangeByName(trailRequest.getMountRangeName());
+        MountRange mountRange = mountRangeService.getOrCreateMountRange(trailRequest.getMountRangeName());
 
         double length = trailService.calculateTrailLength(start, end);
         Category category = trailService.determineTrailCategory(length);
