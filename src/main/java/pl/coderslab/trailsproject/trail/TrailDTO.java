@@ -3,6 +3,7 @@ package pl.coderslab.trailsproject.trail;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.trailsproject.point.Point;
 
 // ta klasa odzwierciedla co będzie przesyłane postem
 @Builder
@@ -11,8 +12,8 @@ import lombok.Setter;
 
 public class TrailDTO {
     private String trailName;
-    private Long startPointId;
-    private Long finishPointId;
+    private Point startPoint;
+    private Point endPoint;
     private String mountRangeName;
 
 }

@@ -35,7 +35,7 @@ public class TagController {
         return "Tag number " + tagId + " deleted";
     }
 
-    @PostMapping("/add-post-tag")
+    @PostMapping("/add-post")
     public String addTag(@RequestBody TagDTO tagRequest) {
 
         String tagName = tagRequest.getTagName();
@@ -66,7 +66,7 @@ public class TagController {
         return "Tag added";
     }
 
-    @PostMapping("/update-post-tag/{tagId}")
+    @PostMapping("/update-post/{tagId}")
     public String updateTag(@PathVariable Long tagId,
                             @RequestBody TagDTO tagRequest) {
 
@@ -107,14 +107,14 @@ public class TagController {
         return "Tag updated";
     }
 
-    // dla danego trail wyświetli wszystkie tagi
+    // Wyświetlenie wszystkich tagów dla danego Trail
     @GetMapping("/trails/{tagId}")
     public List<Trail> getTrailsForTag(@PathVariable Long tagId) {
         Tag tag = tagService.findTagById(tagId);
         return tag.getTrails();
     }
 
-    // najdłuższy trail dla danego tagu
+    // Znalezienie najdłuższego Trail dla podanego tagu
     @GetMapping("/longest-trail/{tagId}")
     public Trail getLongestTrailForTag(@PathVariable Long tagId) {
         return tagService.findLongestTrailByTagId(tagId);

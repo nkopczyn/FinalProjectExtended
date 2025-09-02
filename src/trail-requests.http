@@ -1,12 +1,3 @@
-POST http://localhost:8080/trails/add-post
-Content-Type: application/json
-
-{
-  "trailName": "rysy",
-  "startPointId": 3,
-  "finishPointId": 4,
-  "mountRangeName": "Tatry"
-}
 
 //POST http://localhost:8080/trails/update-post/2
 //Content-Type: application/json
@@ -17,3 +8,35 @@ Content-Type: application/json
 //"finishPointId": 4,
 //"mountRangeName": "Sudety"
 //}
+
+#POST http://localhost:8080/trails/add-post
+#Content-Type: application/json
+#
+#{
+#  "trailName": "K2",
+#  "startPoint": {
+#    "latitude": 30,
+#    "longitude": 20
+#  },
+#  "endPoint": {
+#    "latitude": 27,
+#    "longitude": 23
+#  },
+#  "mountRangeName": "Himalaje"
+#}
+
+POST http://localhost:8080/trails/update-post/11
+Content-Type: application/json
+
+{
+"trailName": "szczyt2",
+"startPoint": {
+"latitude": 33,
+"longitude": 20
+},
+"endPoint": {
+"latitude": 55,
+"longitude": 23
+},
+"mountRangeName": "Sudety"
+}
