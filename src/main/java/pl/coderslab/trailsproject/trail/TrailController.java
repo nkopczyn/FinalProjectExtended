@@ -1,6 +1,9 @@
 package pl.coderslab.trailsproject.trail;
 
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.trailsproject.TrailNotFoundException;
 import pl.coderslab.trailsproject.category.Category;
 import pl.coderslab.trailsproject.category.CategoryService;
 import pl.coderslab.trailsproject.mountrange.MountRange;
@@ -83,7 +86,11 @@ public class TrailController {
 
     @GetMapping("/get/{trailId}")
     public Trail getTrail(@PathVariable Long trailId) {
-        return trailService.findTrailById(trailId);
+        Trail result = trailService.findTrailById(trailId);
+        if (result == null) {
+            throw new TrailNotFoundException(trailId);
+        }
+        return result;
     }
 
     @GetMapping("/delete/{trailId}")
@@ -94,12 +101,12 @@ public class TrailController {
     }
 
     @PostMapping("/update-post/{trailId}")
-    public String updateTrail(@PathVariable Long trailId,
+    public ResponseEntity<?> updateTrail(@PathVariable Long trailId,
                               @RequestBody TrailDTO trailRequest) {
         Trail trailToUpdate = trailService.findTrailById(trailId);
 
         if (trailToUpdate == null) {
-            return "Trail not found";
+            throw new TrailNotFoundException(trailId);
         }
 
         Point start = pointService.getOrCreatePoint(trailRequest.getStartPoint());
@@ -120,12 +127,12 @@ public class TrailController {
         // ustawienie atrybutów
         trailService.updateTrail(trailToUpdate);
 
-        return "Trail number " + trailId + " updated";
+        return ResponseEntity.ok("Trail number " + trailId + " updated");
     }
 
 
     @PostMapping("/add-post")
-    public String addTrail(@RequestBody TrailDTO trailRequest) {
+    public ResponseEntity<?> addTrail(@Valid @RequestBody TrailDTO trailRequest) {
 
         Point start = pointService.getOrCreatePoint(trailRequest.getStartPoint());
         Point end = pointService.getOrCreatePoint(trailRequest.getEndPoint());
@@ -147,7 +154,7 @@ public class TrailController {
 
         trailService.addTrail(trail);
 
-        return "Trail added via post";
+        return ResponseEntity.ok("Trail added via post");
     }
 
     // Wyświetli wszytskie szlaki w danej kategorii od najkrótszego do najdłuższego

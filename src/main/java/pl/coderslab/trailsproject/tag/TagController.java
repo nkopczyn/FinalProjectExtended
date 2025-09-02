@@ -1,5 +1,7 @@
 package pl.coderslab.trailsproject.tag;
 
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.trailsproject.trail.Trail;
 import pl.coderslab.trailsproject.trail.TrailService;
@@ -36,7 +38,7 @@ public class TagController {
     }
 
     @PostMapping("/add-post")
-    public String addTag(@RequestBody TagDTO tagRequest) {
+    public ResponseEntity<?> addTag(@Valid @RequestBody TagDTO tagRequest) {
 
         String tagName = tagRequest.getTagName();
         String tagDescription = tagRequest.getTagDescription();
@@ -63,12 +65,13 @@ public class TagController {
             trailService.addTrail(trail);
         }
 
-        return "Tag added";
+        return ResponseEntity.ok("Tag added via post");
     }
 
     @PostMapping("/update-post/{tagId}")
-    public String updateTag(@PathVariable Long tagId,
-                            @RequestBody TagDTO tagRequest) {
+    public ResponseEntity<?> updateTag(@Valid
+                                           @PathVariable Long tagId,
+                                       @RequestBody TagDTO tagRequest) {
 
         Tag tagToUpdate = tagService.findTagById(tagId);
         tagToUpdate.setName(tagRequest.getTagName());
@@ -104,7 +107,7 @@ public class TagController {
         tagToUpdate.setTrails(trailsForTag);
         tagService.save(tagToUpdate);
 
-        return "Tag updated";
+        return ResponseEntity.ok("Tag number " + tagId + " updated") ;
     }
 
     // Wyświetlenie wszystkich tagów dla danego Trail

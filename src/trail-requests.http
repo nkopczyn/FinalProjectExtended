@@ -9,34 +9,34 @@
 //"mountRangeName": "Sudety"
 //}
 
-POST http://localhost:8080/trails/add-post
+#POST http://localhost:8080/trails/add-post
+#Content-Type: application/json
+#
+#{
+#  "trailName": "nnnnn",
+#  "startPoint": {
+#    "latitude": 2345556,
+#    "longitude": 20
+#  },
+#  "endPoint": {
+#    "latitude": 34,
+#    "longitude": 23
+#  },
+#  "mountRangeName": "NepalskieHimalaje"
+#}
+
+POST http://localhost:8080/trails/update-post/567
 Content-Type: application/json
 
 {
-  "trailName": "nanjapura",
-  "startPoint": {
-    "latitude": 30,
-    "longitude": 20
-  },
-  "endPoint": {
-    "latitude": 34,
-    "longitude": 23
-  },
-  "mountRangeName": "NepalskieHimalaje"
+"trailName": "szczyt2",
+"startPoint": {
+"latitude": 33,
+"longitude": 20
+},
+"endPoint": {
+"latitude": 55,
+"longitude": 23
+},
+"mountRangeName": "Sudety"
 }
-
-//#POST http://localhost:8080/trails/update-post/11
-//#Content-Type: application/json
-//#
-//#{
-//#"trailName": "szczyt2",
-//#"startPoint": {
-//#"latitude": 33,
-//#"longitude": 20
-//#},
-//#"endPoint": {
-//#"latitude": 55,
-//#"longitude": 23
-//#},
-//#"mountRangeName": "Sudety"
-//#}

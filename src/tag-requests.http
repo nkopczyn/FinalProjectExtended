@@ -1,17 +1,17 @@
-#POST http://localhost:8080/tags/add-post-tag
-#Content-Type: application/json
-#
-#{
-#  "tagName": "widokowy",
-#  "tagDescription": "szlaki dla turystów chcących podziwiać faunę i florę",
-#  "tagTrailIds": [4, 5, 7]
-#}
-
-POST http://localhost:8080/tags/update-post-tag/3
+POST http://localhost:8080/tags/add-post
 Content-Type: application/json
 
 {
-   "tagName": "dla psów",
-   "tagDescription": "szlak odpowiedni dla psów i innych zwierząt",
-   "tagTrailIds": [7, 5]
+  "tagName": "widokowy",
+  "tagDescription": "szlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i floręszlaki dla turystów chcących podziwiać faunę i florę",
+  "tagTrailIds": []
 }
+
+//#POST http://localhost:8080/tags/update-post/3
+//#Content-Type: application/json
+//#
+//#{
+//#   "tagName": "dla psów",
+//#   "tagDescription": "szlak odpowiedni dla psów i innych zwierząt",
+//#   "tagTrailIds": []
+//#}
