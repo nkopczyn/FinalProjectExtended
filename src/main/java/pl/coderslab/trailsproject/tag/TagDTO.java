@@ -17,5 +17,5 @@ public class TagDTO {
 
     @Size(min = 1, message = "At least one trail must have this tag")
     private List<Long> tagTrailIds;
-    // Id's of trails that will have this tag
+    // list of Id's of trails that will have this tag
 }

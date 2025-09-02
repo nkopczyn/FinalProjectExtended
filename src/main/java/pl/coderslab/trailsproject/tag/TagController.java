@@ -3,6 +3,8 @@ package pl.coderslab.trailsproject.tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.trailsproject.TagNotFoundException;
+import pl.coderslab.trailsproject.TrailNotFoundException;
 import pl.coderslab.trailsproject.trail.Trail;
 import pl.coderslab.trailsproject.trail.TrailService;
 
@@ -27,7 +29,11 @@ public class TagController {
 
     @GetMapping("get/{tagId}")
     public Tag getTag(@PathVariable Long tagId) {
-        return tagService.findTagById(tagId);
+        Tag result = tagService.findTagById(tagId);
+        if (result == null) {
+            throw new TagNotFoundException(tagId);
+        }
+        return result;
     }
 
 
@@ -74,6 +80,11 @@ public class TagController {
                                        @RequestBody TagDTO tagRequest) {
 
         Tag tagToUpdate = tagService.findTagById(tagId);
+
+        if (tagToUpdate == null) {
+            throw new TagNotFoundException(tagId);
+        }
+
         tagToUpdate.setName(tagRequest.getTagName());
         tagToUpdate.setDescription(tagRequest.getTagDescription());
 
