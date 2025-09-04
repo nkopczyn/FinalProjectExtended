@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang=pl xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista szlaków</title>
+</head>
+<body>
+<h1>Lista szlaków turystycznych</h1>
+<h4>Punkty przedstawione w formacie: długość, szerokość geograficzna</h4>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nazwa szlaku</th>
+        <th>Długość (km)</th>
+        <th>Kategoria</th>
+        <th>Pasma górskie</th>
+        <th>Punkt startowy</th>
+        <th>Punkt końcowy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trail : ${trails}">
+        <td th:text="${trail.name}"></td>
+        <td th:text="${trail.length}"></td>
+        <td th:text="${trail.category.intensity}"></td>
+        <td th:text="${trail.mountRange.name}"></td>
+        <td th:text="${trail.start.longitude} + ', ' + ${trail.start.latitude}"></td>
+        <td th:text="${trail.finish.longitude} + ', ' + ${trail.finish.latitude}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

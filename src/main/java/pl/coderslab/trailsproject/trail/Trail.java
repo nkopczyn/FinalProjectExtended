@@ -25,8 +25,12 @@ public class Trail {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "start_id")
     private Point start;
+
     @ManyToOne
+    @JoinColumn(name = "finish_id")
+    // wskazanie, która kolumna w tabeli przechowyje ten klucz obcy, można sie dostać do atrybutów Point w widoku
     private Point finish;
 
     private double length;

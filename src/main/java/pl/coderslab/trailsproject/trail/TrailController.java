@@ -2,6 +2,8 @@ package pl.coderslab.trailsproject.trail;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.trailsproject.TrailNotFoundException;
 import pl.coderslab.trailsproject.category.Category;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@RestController
+@Controller
 @RequestMapping("/trails")
 public class TrailController {
     private final TrailService trailService;
@@ -32,19 +34,20 @@ public class TrailController {
     }
 
     @GetMapping("/all")
-    public List<Trail> showTrails() {
-        return trailService.getAllTrails();
+    public String showTrails(Model model) {
+        List<Trail> trails = trailService.getAllTrails();
+        model.addAttribute("trails", trails);
+        return "trail-list";
     }
 
     @GetMapping("/summary")
-    public String showTrailsSummary() {
-        StringBuilder summary = new StringBuilder();
-
+    public String showTrailsSummary(Model model) {
         List<Trail> trails = trailService.getAllTrails();
 
         // Trail::getLength - pobiera atrybut Length dla każdego trail
-        double totalLength = trails.stream().mapToDouble(Trail::getLength).sum();
-        double averageLength = totalLength / trails.size();
+        int numberOfTrails = trails.size();
+        double totalLength = Math.round(trails.stream().mapToDouble(Trail::getLength).sum());
+        double averageLength = Math.round(totalLength / trails.size());
         List<String> distinctMountRanges = trails.stream().map(Trail::getMountRange).map(MountRange::getName)
                 .distinct().collect(Collectors.toList());
 
@@ -63,25 +66,16 @@ public class TrailController {
             }
         }
 
-        // build summary
-        summary.append("Total number of trails: ").append(trails.size());
-        summary.append("<br>");
-        summary.append("Total length in km: ").append(totalLength);
-        summary.append("<br>");
-        summary.append("Average length in km: ").append(averageLength);
-        summary.append("<br>");
-        summary.append("Mountain ranges mentioned: ").append(distinctMountRanges);
-        summary.append("<br>");
-        summary.append("Number of trails for each category: ");
-        summary.append("<br>");
-        summary.append("hard: ").append(countHard);
-        summary.append("<br>");
-        summary.append("mid: ").append(countMedium);
-        summary.append("<br>");
-        summary.append("easy: ").append(countEasy);
+        model.addAttribute("numberOfTrails", numberOfTrails);
+        model.addAttribute("totalLength", totalLength);
+        model.addAttribute("averageLength", averageLength);
+        model.addAttribute("distinctMountRanges", distinctMountRanges);
 
+        model.addAttribute("countEasy", countEasy);
+        model.addAttribute("countMedium", countMedium);
+        model.addAttribute("countHard", countHard);
 
-        return summary.toString();
+        return "trail-summary";
     }
 
     @GetMapping("/get/{trailId}")
