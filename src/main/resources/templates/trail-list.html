@@ -9,16 +9,18 @@
 <table border="1">
     <thead>
     <tr>
-        <th>Nazwa szlaku</th>
-        <th>Długość (km)</th>
-        <th>Kategoria</th>
-        <th>Pasma górskie</th>
-        <th>Punkt startowy</th>
-        <th>Punkt końcowy</th>
+        <th>  ID  </th>
+        <th>  Nazwa szlaku  </th>
+        <th>  Długość (km)  </th>
+        <th>  Kategoria  </th>
+        <th>  Pasma górskie  </th>
+        <th>  Punkt startowy  </th>
+        <th>  Punkt końcowy  </th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="trail : ${trails}">
+        <td th:text="${trail.id}"></td>
         <td th:text="${trail.name}"></td>
         <td th:text="${trail.length}"></td>
         <td th:text="${trail.category.intensity}"></td>
@@ -36,6 +38,19 @@
     <input type="number" id="trailId" name="trailId" required>
     <button type="submit">Wyświetl szlak</button>
 </form>
+
+<br>
+
+<form th:action="@{/trails/delete-by-id}" method="get">
+    <label for="trailIdDel">Podaj numer szlaku który chcesz usunąć:</label>
+    <input type="number" id="trailIdDel" name="trailIdDel" required>
+    <button type="submit">Usuń szlak</button>
+</form>
+
+<br>
+
+<a th:href="@{/trails/add-form}"> Dodaj szlak </a>
+
 
 </body>
 </html>

@@ -99,9 +99,15 @@ public class TrailController {
         return "trail-delete";
     }
 
+    // Przekierowywanie z linku do metody get id
     @GetMapping("/find-by-id")
-    public String findTrailById(@RequestParam Long trailId) {
+    public String findTrailFromForm(@RequestParam Long trailId) {
         return "redirect:/trails/get/" + trailId;
+    }
+
+    @GetMapping("/delete-by-id")
+    public String deleteTrailById(@RequestParam Long trailIdDel) {
+        return "redirect:/trails/delete/" + trailIdDel;
     }
 
 //    @PostMapping("/update-post/{trailId}")
