@@ -79,19 +79,23 @@ public class TrailController {
     }
 
     @GetMapping("/get/{trailId}")
-    public Trail getTrail(@PathVariable Long trailId) {
+    public String getTrail(@PathVariable Long trailId,
+                          Model model) {
         Trail result = trailService.findTrailById(trailId);
         if (result == null) {
             throw new TrailNotFoundException(trailId);
         }
-        return result;
+        model.addAttribute("result", result);
+        return "trail-display-id";
     }
 
     @GetMapping("/delete/{trailId}")
-    public String deleteTrail(@PathVariable Long trailId) {
+    public String deleteTrail(@PathVariable Long trailId,
+                              Model model) {
         Trail trailToDel = trailService.findTrailById(trailId);
         trailService.deleteTrail(trailToDel);
-        return "Trail number " + trailId + " deleted";
+        model.addAttribute("trailId", trailId);
+        return "trail-delete";
     }
 
     @PostMapping("/update-post/{trailId}")
@@ -153,9 +157,12 @@ public class TrailController {
 
     // Wyświetli wszytskie szlaki w danej kategorii od najkrótszego do najdłuższego
     @GetMapping("/category/{catName}")
-    public List<Trail> showTrailsByCategory(@PathVariable String catName) {
+    public String showTrailsByCategory(@PathVariable String catName,
+                                            Model model) {
         List<Trail> foundTrails = trailService.sortTrailsByCategory(catName);
-        return foundTrails;
+        model.addAttribute("trails", foundTrails);
+        model.addAttribute("category", catName);
+        return "trail-incategory";
     }
 
 }

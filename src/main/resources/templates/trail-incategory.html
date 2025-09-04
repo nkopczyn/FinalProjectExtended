@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Szlaki w kategorii</title>
+</head>
+<body>
+
+<h2 th:text="|Dostępne szlaki dla kategorii ${category}|"></h2>
+
+<ol>
+        <li th:each="trail : ${trails}"
+            th:text="|Szlak numer ${trail.id} o nazwie ${trail.name}|"></li>
+</ol>
+
+</body>
+</html>

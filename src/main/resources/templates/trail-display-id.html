@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang=pl xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Szlak </title>
+</head>
+<body>
+
+<h3 th:text="|Szlak numer ${result.id}:|"></h3>
+<p th:text="|Nazwa: ${result.name}|"></p>
+<p th:text="|Długośc: ${result.length}|"></p>
+<p th:text="|Kategoria: ${result.category.intensity}|"></p>
+<p th:text="|Pasmo górskie: ${result.mountRange.name}|"></p>
+
+</body>
+</html>
