@@ -33,4 +33,11 @@ public class PointService {
         return pointRepository.save(point);
     }
 
+    public Point convertToPoint(PointDTO dto) {
+        Point p = new Point();
+        p.setLatitude(dto.getLatitude());
+        p.setLongitude(dto.getLongitude());
+        return p;
+    }
+
 }

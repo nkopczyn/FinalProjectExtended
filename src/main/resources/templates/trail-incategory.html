@@ -9,9 +9,13 @@
 <h2 th:text="|Dostępne szlaki dla kategorii ${category}|"></h2>
 
 <ol>
-        <li th:each="trail : ${trails}"
-            th:text="|Szlak numer ${trail.id} o nazwie ${trail.name}|"></li>
+        <li th:each="trail : ${trails}" >
+            Szlak numer <span th:text="${trail.id}"></span> o nazwie <span th:text="${trail.name}"></span>
+            <a th:href="@{/trails/get/{id}(id=${trail.id})}">Zobacz</a>
+        </li>
 </ol>
+
+<a th:href="@{/trails/all}">Powrót do listy szlaków</a>
 
 </body>
 </html>

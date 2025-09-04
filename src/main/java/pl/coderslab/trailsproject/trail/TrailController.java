@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.trailsproject.TrailNotFoundException;
 import pl.coderslab.trailsproject.category.Category;
@@ -98,42 +99,83 @@ public class TrailController {
         return "trail-delete";
     }
 
-    @PostMapping("/update-post/{trailId}")
-    public ResponseEntity<?> updateTrail(@PathVariable Long trailId,
-                              @RequestBody TrailDTO trailRequest) {
-        Trail trailToUpdate = trailService.findTrailById(trailId);
-
-        if (trailToUpdate == null) {
-            throw new TrailNotFoundException(trailId);
-        }
-
-        Point start = pointService.getOrCreatePoint(trailRequest.getStartPoint());
-        Point end = pointService.getOrCreatePoint(trailRequest.getEndPoint());
-
-        MountRange mountRange = mountRangeService.getMountRangeByName(trailRequest.getMountRangeName());
-        double length = trailService.calculateTrailLength(start, end);
-        Category category = trailService.determineTrailCategory(length);
-
-
-        trailToUpdate.setName(trailRequest.getTrailName());
-        trailToUpdate.setStart(start);
-        trailToUpdate.setFinish(end);
-        trailToUpdate.setMountRange(mountRange);
-        trailToUpdate.setLength(length);
-        trailToUpdate.setCategory(category);
-
-        // ustawienie atrybutów
-        trailService.updateTrail(trailToUpdate);
-
-        return ResponseEntity.ok("Trail number " + trailId + " updated");
+    @GetMapping("/find-by-id")
+    public String findTrailById(@RequestParam Long trailId) {
+        return "redirect:/trails/get/" + trailId;
     }
 
+//    @PostMapping("/update-post/{trailId}")
+//    public ResponseEntity<?> updateTrail(@PathVariable Long trailId,
+//                              @RequestBody TrailDTO trailRequest) {
+//        Trail trailToUpdate = trailService.findTrailById(trailId);
+//
+//        if (trailToUpdate == null) {
+//            throw new TrailNotFoundException(trailId);
+//        }
+//
+//        Point start = pointService.getOrCreatePoint(trailRequest.getStartPoint());
+//        Point end = pointService.getOrCreatePoint(trailRequest.getEndPoint());
+//
+//        MountRange mountRange = mountRangeService.getMountRangeByName(trailRequest.getMountRangeName());
+//        double length = trailService.calculateTrailLength(start, end);
+//        Category category = trailService.determineTrailCategory(length);
+//
+//
+//        trailToUpdate.setName(trailRequest.getTrailName());
+//        trailToUpdate.setStart(start);
+//        trailToUpdate.setFinish(end);
+//        trailToUpdate.setMountRange(mountRange);
+//        trailToUpdate.setLength(length);
+//        trailToUpdate.setCategory(category);
+//
+//        // ustawienie atrybutów
+//        trailService.updateTrail(trailToUpdate);
+//
+//        return ResponseEntity.ok("Trail number " + trailId + " updated");
+//    }
+//
+//
+//    @PostMapping("/add-post")
+//    public ResponseEntity<?> addTrail(@Valid @RequestBody TrailDTO trailRequest) {
+//
+//        Point start = pointService.getOrCreatePoint(trailRequest.getStartPoint());
+//        Point end = pointService.getOrCreatePoint(trailRequest.getEndPoint());
+//
+//        String trailName = trailRequest.getTrailName();
+//        MountRange mountRange = mountRangeService.getOrCreateMountRange(trailRequest.getMountRangeName());
+//
+//        double length = trailService.calculateTrailLength(start, end);
+//        Category category = trailService.determineTrailCategory(length);
+//
+//        // ustawianie atrybutów
+//        Trail trail = new Trail();
+//        trail.setName(trailName);
+//        trail.setStart(start);
+//        trail.setFinish(end);
+//        trail.setLength(length);
+//        trail.setCategory(category);
+//        trail.setMountRange(mountRange);
+//
+//        trailService.addTrail(trail);
+//
+//        return ResponseEntity.ok("Trail added via post");
+//    }
 
-    @PostMapping("/add-post")
-    public ResponseEntity<?> addTrail(@Valid @RequestBody TrailDTO trailRequest) {
+    @PostMapping("/add-form")
+    public String addTrailFromForm (@ModelAttribute("trailDTO") @Valid TrailDTO trailRequest,
+                                    BindingResult bindingResult,
+                                    Model model) {
 
-        Point start = pointService.getOrCreatePoint(trailRequest.getStartPoint());
-        Point end = pointService.getOrCreatePoint(trailRequest.getEndPoint());
+        if (bindingResult.hasErrors()) {
+            return "trail-add"; // jesli sa bledy w formularzu
+        }
+
+        // funkcja z PointService która zamienia objekty PointDTO nan Point
+        Point start = pointService.convertToPoint(trailRequest.getStartPoint());
+        Point end = pointService.convertToPoint(trailRequest.getEndPoint());
+
+        start = pointService.getOrCreatePoint(start);
+        end = pointService.getOrCreatePoint(end);
 
         String trailName = trailRequest.getTrailName();
         MountRange mountRange = mountRangeService.getOrCreateMountRange(trailRequest.getMountRangeName());
@@ -152,8 +194,16 @@ public class TrailController {
 
         trailService.addTrail(trail);
 
-        return ResponseEntity.ok("Trail added via post");
+        return "redirect:/trails/all";
     }
+
+    @GetMapping("/add-form")
+    public String showAddTrailForm(Model model) {
+        model.addAttribute("trailDTO", new TrailDTO());
+        return "trail-add"; // nazwa widoku z formularzem
+    }
+
+
 
     // Wyświetli wszytskie szlaki w danej kategorii od najkrótszego do najdłuższego
     @GetMapping("/category/{catName}")
