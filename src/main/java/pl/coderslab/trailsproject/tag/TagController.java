@@ -1,7 +1,10 @@
 package pl.coderslab.trailsproject.tag;
 
 import jakarta.validation.Valid;
+import org.springframework.http.ETag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.trailsproject.TagNotFoundException;
 import pl.coderslab.trailsproject.TrailNotFoundException;
@@ -11,7 +14,7 @@ import pl.coderslab.trailsproject.trail.TrailService;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/tags")
 public class TagController {
     private final TagService tagService;
@@ -22,18 +25,24 @@ public class TagController {
         this.trailService = trailService;
     }
 
+
+
     @GetMapping("/all")
-    public List<Tag> getAllTags() {
-        return tagService.findAll();
+    public String getAllTags(Model model) {
+        List<Tag> tags = tagService.findAll();
+        model.addAttribute("tags", tags);
+        return "tag-list";
     }
 
+
     @GetMapping("get/{tagId}")
-    public Tag getTag(@PathVariable Long tagId) {
+    public String getTag(@PathVariable Long tagId, Model model) {
         Tag result = tagService.findTagById(tagId);
         if (result == null) {
             throw new TagNotFoundException(tagId);
         }
-        return result;
+        model.addAttribute("result", result);
+        return "tag-display-id";
     }
 
 

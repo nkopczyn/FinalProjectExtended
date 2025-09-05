@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tag</title>
+</head>
+<body>
+
+<h3 th:text="|Tag numer ${result.id}:|"></h3>
+<p th:text="|Nazwa: ${result.name}|"></p>
+<p th:text="|Opis: ${result.description}|"></p>
+<p>Szlaki:</p>
+<ul>
+    <li th:each="trail : ${result.trails}" th:text="|Szlak numer ${trail.id} o nazwie ${trail.name}|"></li>
+</ul>
+
+<a th:href="@{/tags/all}">Powrót do listy szlaków</a>
+
+</body>
+</html>
