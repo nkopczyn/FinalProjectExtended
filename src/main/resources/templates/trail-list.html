@@ -16,6 +16,7 @@
         <th>  Pasma górskie  </th>
         <th>  Punkt startowy  </th>
         <th>  Punkt końcowy  </th>
+        <th> Akcja </th>
     </tr>
     </thead>
     <tbody>
@@ -27,6 +28,9 @@
         <td th:text="${trail.mountRange.name}"></td>
         <td th:text="${trail.start.longitude} + ', ' + ${trail.start.latitude}"></td>
         <td th:text="${trail.finish.longitude} + ', ' + ${trail.finish.latitude}"></td>
+        <td>
+            <a th:href="@{/trails/update-form/{id}(id=${trail.id})}">Edytuj</a>
+        </td>
     </tr>
     </tbody>
 </table>

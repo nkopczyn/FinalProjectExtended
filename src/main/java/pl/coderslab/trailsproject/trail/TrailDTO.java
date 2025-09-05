@@ -13,6 +13,8 @@ import pl.coderslab.trailsproject.point.PointDTO;
 @Setter
 
 public class TrailDTO {
+    private Long id;
+
     @NotBlank(message = "Trail name is required")
     private String trailName;
 
@@ -28,10 +30,22 @@ public class TrailDTO {
 
     public TrailDTO() {
     }
-    public TrailDTO(String trailName, PointDTO startPoint, PointDTO endPoint, String mountRangeName) {
+    public TrailDTO(Long id, String trailName, PointDTO startPoint, PointDTO endPoint, String mountRangeName) {
+        this.id = id;
         this.trailName = trailName;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.mountRangeName = mountRangeName;
+    }
+
+    public static TrailDTO convertToDTO(Trail trail) {
+        TrailDTO trailDTO = new TrailDTO();
+        trailDTO.setId(trail.getId());
+        trailDTO.setTrailName(trail.getName());
+        trailDTO.setMountRangeName(trail.getMountRange().getName());
+        trailDTO.setStartPoint(new PointDTO(trail.getStart().getLatitude(), trail.getStart().getLongitude()));
+        trailDTO.setEndPoint(new PointDTO(trail.getFinish().getLatitude(), trail.getFinish().getLongitude()));
+
+        return trailDTO;
     }
 }
