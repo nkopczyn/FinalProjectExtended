@@ -11,10 +11,13 @@
 <p th:text="|Opis: ${result.description}|"></p>
 <p>Szlaki:</p>
 <ul>
-    <li th:each="trail : ${result.trails}" th:text="|Szlak numer ${trail.id} o nazwie ${trail.name}|"></li>
+    <li th:each="trail : ${result.trails}" >
+        Szlak numer <span th:text="${trail.id}"></span> o nazwie <span th:text="${trail.name}"></span>
+        <a th:href="@{/trails/get/{id}(id=${trail.id})}">Zobacz</a>
+    </li>
 </ul>
 
-<a th:href="@{/tags/all}">Powrót do listy szlaków</a>
+<a th:href="@{/tags/all}">Powrót do listy tagów</a>
 
 </body>
 </html>

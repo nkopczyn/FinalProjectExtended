@@ -22,13 +22,22 @@
     <td th:text="${tag.id}"></td>
     <td th:text="${tag.name}"></td>
     <td th:text="${tag.description}"></td>
-    <td th:text="${tag.trails}"></td>
+    <td>
+      <span th:each="trail : ${tag.trails}" th:text="${trail.id} + ' '"></span>
+    </td>
+
     <td>
       <a th:href="@{/tags/get/{id}(id=${tag.id})}">Zobacz</a>
+      <a th:href="@{/tags/get/{id}(id=${tag.id})}">Edytuj</a>
+      <a th:href="@{/tags/delete/{id}(id=${tag.id})}">Usuń</a>
+      <a th:href="@{/tags/longest-trail/{id}(id=${tag.id})}">Najdłuższy szlak</a>
     </td>
   </tr>
   </tbody>
 </table>
+
+
+<a th:href="@{/tag/all}"> Dodaj tag </a>
 
 </body>
 </html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Najdłuższy szlak</title>
+</head>
+<body>
+
+<h3 th:text="|Najdłuzszy szlak dla tagu numer ${trailId}:|"></h3>
+<p th:text="|Nazwa: ${longest.name}|"></p>
+<p th:text="|Długość: ${longest.length}|"></p>
+<p th:text="|Pasmo górskie: ${longest.mountRange.name}|"></p>
+
+<a th:href="@{/tags/all}">Powrót do listy tagów</a>
+
+</body>
+</html>

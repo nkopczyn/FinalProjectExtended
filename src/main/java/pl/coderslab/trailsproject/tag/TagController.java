@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.model.IModel;
 import pl.coderslab.trailsproject.TagNotFoundException;
 import pl.coderslab.trailsproject.TrailNotFoundException;
 import pl.coderslab.trailsproject.trail.Trail;
@@ -47,10 +48,13 @@ public class TagController {
 
 
     @GetMapping("/delete/{tagId}")
-    public String deleteTag(@PathVariable Long tagId) {
+    public String deleteTag(@PathVariable Long tagId, Model model) {
         tagService.deleteTagById(tagId);
-        return "Tag number " + tagId + " deleted";
+        model.addAttribute("tagId", tagId);
+        return "tag-delete";
     }
+
+
 
     @PostMapping("/add-post")
     public ResponseEntity<?> addTag(@Valid @RequestBody TagDTO tagRequest) {
@@ -139,8 +143,12 @@ public class TagController {
 
     // Znalezienie najdłuższego Trail dla podanego tagu
     @GetMapping("/longest-trail/{tagId}")
-    public Trail getLongestTrailForTag(@PathVariable Long tagId) {
-        return tagService.findLongestTrailByTagId(tagId);
+    public String getLongestTrailForTag(@PathVariable Long tagId,
+                                        Model model) {
+        Trail longest = tagService.findLongestTrailByTagId(tagId);
+        model.addAttribute("longest", longest);
+        model.addAttribute("tagId", tagId);
+        return "tag-longest-trail";
     }
 
 }
