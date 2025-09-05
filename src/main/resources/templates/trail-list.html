@@ -37,6 +37,8 @@
 
 <br>
 
+<h4> Wyszukiwarka </h4>
+
 <form th:action="@{/trails/find-by-id}" method="get">
     <label for="trailId">Podaj numer szlaku który chcesz wyświetlić:</label>
     <input type="number" id="trailId" name="trailId" required>
@@ -53,7 +55,21 @@
 
 <br>
 
+<form th:action="@{/trails/find-by-cat}" method="get">
+    <label for="cat">Podaj nazwę kategorii dla której chcesz wyświetlić szlaki:</label>
+    <input type="text" id="cat" name="cat" required>
+    <button type="submit">Szukaj</button>
+</form>
+
+<br>
+
+<h4> Linki  </h4>
+
 <a th:href="@{/trails/add-form}"> Dodaj szlak </a>
+
+<br>
+
+<a th:href="@{/trails/summary}"> Wyświetl podsumowanie </a>
 
 
 </body>

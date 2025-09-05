@@ -36,6 +36,8 @@ public class TrailController {
         this.mountRangeService = mountRangeService;
     }
 
+
+
     @GetMapping("/all")
     public String showTrails(Model model) {
         List<Trail> trails = trailService.getAllTrails();
@@ -62,7 +64,7 @@ public class TrailController {
         for (String cat : categoriesCount) {
             if (cat.equals("easy")) {
                 countEasy++;
-            } else if (cat.equals("medium")) {
+            } else if (cat.equals("mid")) {
                 countMedium++;
             } else if (cat.equals("hard")) {
                 countHard++;
@@ -203,7 +205,10 @@ public class TrailController {
         return "trail-add"; // nazwa widoku z formularzem
     }
 
-
+    @GetMapping("/find-by-cat")
+    public String findCategoryFromForm(@RequestParam String cat) {
+        return "redirect:/trails/category/" + cat;
+    }
 
     // Wyświetli wszytskie szlaki w danej kategorii od najkrótszego do najdłuższego
     @GetMapping("/category/{catName}")
