@@ -1,14 +1,12 @@
 package pl.coderslab.trailsproject.tag;
 
 import jakarta.validation.Valid;
-import org.springframework.http.ETag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.model.IModel;
+import pl.coderslab.trailsproject.NoTrailsAvailableException;
 import pl.coderslab.trailsproject.TagNotFoundException;
-import pl.coderslab.trailsproject.TrailNotFoundException;
 import pl.coderslab.trailsproject.trail.Trail;
 import pl.coderslab.trailsproject.trail.TrailService;
 
@@ -42,6 +40,7 @@ public class TagController {
         if (result == null) {
             throw new TagNotFoundException(tagId);
         }
+        model.addAttribute("tagId", tagId);
         model.addAttribute("result", result);
         return "tag-display-id";
     }
@@ -146,6 +145,11 @@ public class TagController {
     public String getLongestTrailForTag(@PathVariable Long tagId,
                                         Model model) {
         Trail longest = tagService.findLongestTrailByTagId(tagId);
+
+        if (longest == null) {
+            throw new NoTrailsAvailableException();
+        }
+
         model.addAttribute("longest", longest);
         model.addAttribute("tagId", tagId);
         return "tag-longest-trail";

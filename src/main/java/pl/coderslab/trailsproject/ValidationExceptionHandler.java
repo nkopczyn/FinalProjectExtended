@@ -31,5 +31,10 @@ public class ValidationExceptionHandler {
     public ResponseEntity<String> handleTagNotFound(TagNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
+
+    @ExceptionHandler(NoTrailsAvailableException.class)
+    public ResponseEntity<String> handleNoTrailsAvailable(NoTrailsAvailableException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
 }
 
