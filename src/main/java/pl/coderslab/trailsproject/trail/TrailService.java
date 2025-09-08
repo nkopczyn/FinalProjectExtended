@@ -38,6 +38,10 @@ public class TrailService {
         return trailRepository.findById(id).orElse(null);
     }
 
+    public List<Trail> findAllByIds (List<Long> ids) {
+        return trailRepository.findAllById(ids);
+    }
+
     public void updateTrail(Trail trail) {
         trailRepository.save(trail);
     }

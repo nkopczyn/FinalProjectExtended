@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj tag</title>
+</head>
+<body>
+
+<h3 th:text="'Dodaj nowy tag'"></h3>
+
+<form th:action="@{/tags/add-form}" th:object="${tagDTO}" method="post">
+
+    <label for="tagName">Podaj nazwę tagu:</label>
+    <input type="text" id="tagName" th:field="*{tagName}" required>
+
+    <br><br>
+
+    <label for="tagDescription">Podaj opis:</label>
+    <input type="text" id="tagDescription" th:field="*{tagDescription}" required>
+
+    <br><br>
+
+    <label>Wybierz szlaki zawierające ten tag:</label>
+    <div th:each="trail : ${trailList}">
+        <input type="checkbox"
+               th:id="'trail_' + ${trail.id}"
+               th:field="*{tagTrailIds}"
+               th:value="${trail.id}" />
+        <label th:for="'trail_' + ${trail.id}" th:text="${trail.name}"></label>
+    </div>
+
+    <br><br>
+
+    <button type="submit">Dodaj</button>
+</form>
+
+</body>
+</html>

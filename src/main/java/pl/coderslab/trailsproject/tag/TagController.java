@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.trailsproject.NoTrailsAvailableException;
 import pl.coderslab.trailsproject.TagNotFoundException;
 import pl.coderslab.trailsproject.trail.Trail;
+import pl.coderslab.trailsproject.trail.TrailDTO;
 import pl.coderslab.trailsproject.trail.TrailService;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class TagController {
         this.tagService = tagService;
         this.trailService = trailService;
     }
-
 
 
     @GetMapping("/all")
@@ -53,42 +53,86 @@ public class TagController {
         return "tag-delete";
     }
 
-
-
-    @PostMapping("/add-post")
-    public ResponseEntity<?> addTag(@Valid @RequestBody TagDTO tagRequest) {
+    @PostMapping("/add-form")
+    public String addTagFromForm(@ModelAttribute("tagDTO") @Valid TagDTO tagRequest,
+                                 Model model) {
 
         String tagName = tagRequest.getTagName();
         String tagDescription = tagRequest.getTagDescription();
 
-        // szukanie Trails przez ID podane w request
-        List<Trail> trailsForTag = new ArrayList<>();
+        List<Long> trailIds = tagRequest.getTagTrailIds();
 
-        for (Long id : tagRequest.getTagTrailIds()) {
-            Trail trail = trailService.findTrailById(id);
-            trailsForTag.add(trail);
-        }
+        List<Trail> tagTrails = trailService.findAllByIds(trailIds);
 
         Tag newTag = new Tag();
         newTag.setName(tagName);
         newTag.setDescription(tagDescription);
-        newTag.setTrails(trailsForTag);
-        tagService.save(newTag);
+        tagService.save(newTag); // tworzymy tag
 
-        for (Trail trail : trailsForTag) {
+//        Tylko właściciel relacji (czyli Trail) zarządza wpisami w tabeli join (trail_tag).
+//                Zmiany po stronie nie-właściciela (Tag) nie są automatycznie synchronizowane przez JPA.
+        // dlatego dodajemy ręcznie te relacje tutaj
+
+        for (Trail trail : tagTrails) {
             if (trail.getTags() == null) {
                 trail.setTags(new ArrayList<>());
             }
-            trail.getTags().add(newTag);
-            trailService.addTrail(trail);
+            trail.getTags().add(newTag); // add metoda z List
+
+            if (newTag.getTrails() == null) {
+                newTag.setTrails(new ArrayList<>());
+            }
+            newTag.getTrails().add(trail);
+
+            trailService.addTrail(trail); // update listy tagów dla trail
         }
 
-        return ResponseEntity.ok("Tag added via post");
+        return "redirect:/tags/all";
     }
+
+    @GetMapping("/add-form")
+    public String showAddTagForm(Model model) {
+        model.addAttribute("tagDTO", new TagDTO());
+        model.addAttribute("trailList", trailService.getAllTrails());
+        return "tag-add"; // nazwa widoku z formularzem
+    }
+
+
+//    @PostMapping("/add-post")
+//    public ResponseEntity<?> addTag(@Valid @RequestBody TagDTO tagRequest) {
+//
+//        String tagName = tagRequest.getTagName();
+//        String tagDescription = tagRequest.getTagDescription();
+//
+//        // szukanie Trails przez ID podane w request
+//        List<Trail> trailsForTag = new ArrayList<>();
+//
+//        for (Long id : tagRequest.getTagTrailIds()) {
+//            Trail trail = trailService.findTrailById(id);
+//            trailsForTag.add(trail);
+//        }
+//
+//        Tag newTag = new Tag();
+//        newTag.setName(tagName);
+//        newTag.setDescription(tagDescription);
+//        newTag.setTrails(trailsForTag);
+//        tagService.save(newTag);
+//
+//        for (Trail trail : trailsForTag) {
+//            if (trail.getTags() == null) {
+//                trail.setTags(new ArrayList<>());
+//            }
+//            trail.getTags().add(newTag);
+//            trailService.addTrail(trail);
+//        }
+//
+//        return ResponseEntity.ok("Tag added via post");
+//    }
+
 
     @PostMapping("/update-post/{tagId}")
     public ResponseEntity<?> updateTag(@Valid
-                                           @PathVariable Long tagId,
+                                       @PathVariable Long tagId,
                                        @RequestBody TagDTO tagRequest) {
 
         Tag tagToUpdate = tagService.findTagById(tagId);
@@ -130,7 +174,7 @@ public class TagController {
         tagToUpdate.setTrails(trailsForTag);
         tagService.save(tagToUpdate);
 
-        return ResponseEntity.ok("Tag number " + tagId + " updated") ;
+        return ResponseEntity.ok("Tag number " + tagId + " updated");
     }
 
     // Wyświetlenie wszystkich tagów dla danego Trail
