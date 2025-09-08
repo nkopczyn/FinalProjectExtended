@@ -13,6 +13,7 @@ import pl.coderslab.trailsproject.mountrange.MountRange;
 import pl.coderslab.trailsproject.mountrange.MountRangeService;
 import pl.coderslab.trailsproject.point.Point;
 import pl.coderslab.trailsproject.point.PointService;
+import pl.coderslab.trailsproject.tag.TagDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -156,12 +157,22 @@ public class TrailController {
     // przekierowywanie do formularza
     @GetMapping("/update-form/{trailId}")
     public String showUpdateForm(@PathVariable Long trailId, Model model) {
+
         Trail trail = trailService.findTrailById(trailId);
-        TrailDTO trailDTO = convertToDTO(trail);
+
+        // DTO z aktualnymi danymi
+        TrailDTO trailDTO = TrailDTO.builder()
+                .id(trailId)
+                .trailName(trail.getName())
+                .mountRangeName(trail.getMountRange().getName())
+                .endPoint(pointService.convertToPointDTO(trail.getFinish()))
+                .startPoint(pointService.convertToPointDTO(trail.getStart()))
+                .build();
+
         model.addAttribute("trailDTO", trailDTO);
+
         return "trail-update";
     }
-
 
     @PostMapping("/add-form")
     public String addTrailFromForm (@ModelAttribute("trailDTO") @Valid TrailDTO trailRequest,

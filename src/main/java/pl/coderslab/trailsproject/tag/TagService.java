@@ -1,6 +1,7 @@
 package pl.coderslab.trailsproject.tag;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.trailsproject.trail.Trail;
 import pl.coderslab.trailsproject.trail.TrailRepository;
 
@@ -28,8 +29,15 @@ public class TagService {
         return tagRepository.findById(id).orElse(null);
     }
 
-    public void deleteTagById(Long id) {
-        tagRepository.deleteById(id);
+    @Transactional
+    public void deleteTagById(Long tagId) {
+        Tag tag = tagRepository.findById(tagId).orElse(null);
+        assert tag != null;
+        for (Trail trail : tag.getTrails()) {
+            trail.getTags().remove(tag);
+            trailRepository.save(trail);
+        }
+        tagRepository.deleteById(tagId);
     }
 
     public Trail findLongestTrailByTagId(Long id) {

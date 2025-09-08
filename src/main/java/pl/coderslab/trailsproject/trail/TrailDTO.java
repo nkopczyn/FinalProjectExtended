@@ -30,6 +30,7 @@ public class TrailDTO {
 
     public TrailDTO() {
     }
+
     public TrailDTO(Long id, String trailName, PointDTO startPoint, PointDTO endPoint, String mountRangeName) {
         this.id = id;
         this.trailName = trailName;

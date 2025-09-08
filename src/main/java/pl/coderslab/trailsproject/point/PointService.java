@@ -40,4 +40,11 @@ public class PointService {
         return p;
     }
 
+    public PointDTO convertToPointDTO(Point point) {
+        PointDTO dto = new PointDTO();
+        dto.setLatitude(point.getLatitude());
+        dto.setLongitude(point.getLongitude());
+        return dto;
+    }
+
 }

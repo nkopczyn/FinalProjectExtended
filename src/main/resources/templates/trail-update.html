@@ -10,26 +10,26 @@
 <form th:action="@{/trails/update-form/{trailId} (trailId = ${trailDTO.id})}" th:object="${trailDTO}" method="post">
 
     <label for="trailName">Podaj nazwę szlaku:</label>
-    <input type="text" id="trailName" name="trailName" required>
+    <input type="text" id="trailName" th:field="*{trailName}" required>
 
     <label for="mountRangeName">Podaj nazwę pasma górskiego:</label>
-    <input type="text" id="mountRangeName" name="mountRangeName" required><br><br>
+    <input type="text" id="mountRangeName" th:field="*{mountRangeName}" required><br><br>
 
     <fieldset>
         <legend>Punkt startowy</legend>
         <label for="startLatitude">Szerokość geograficzna:</label>
-        <input type="number" id="startLatitude" name="startPoint.latitude" step="any" required><br>
+        <input type="number" id="startLatitude" th:field="*{startPoint.latitude}" step="any" required><br>
         <label for="startLongitude">Długość geograficzna:</label>
-        <input type="number" id="startLongitude" name="startPoint.longitude" step="any" required><br>
+        <input type="number" id="startLongitude" th:field="*{startPoint.longitude}" step="any" required><br>
     </fieldset>
     <br>
 
     <fieldset>
         <legend>Punkt końcowy</legend>
         <label for="endLatitude">Szerokość geograficzna:</label>
-        <input type="number" id="endLatitude" name="endPoint.latitude" step="any" required><br>
+        <input type="number" id="endLatitude" th:field="*{endPoint.latitude}" step="any" required><br>
         <label for="endLongitude">Długość geograficzna:</label>
-        <input type="number" id="endLongitude" name="endPoint.longitude" step="any" required><br>
+        <input type="number" id="endLongitude" th:field="*{endPoint.longitude}" step="any" required><br>
     </fieldset>
     <br>
 

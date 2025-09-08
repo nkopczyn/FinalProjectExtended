@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.trailsproject.NoTrailsAvailableException;
 import pl.coderslab.trailsproject.TagNotFoundException;
+import pl.coderslab.trailsproject.point.PointService;
 import pl.coderslab.trailsproject.trail.Trail;
 import pl.coderslab.trailsproject.trail.TrailDTO;
 import pl.coderslab.trailsproject.trail.TrailService;
@@ -19,10 +20,12 @@ import java.util.List;
 public class TagController {
     private final TagService tagService;
     private final TrailService trailService;
+    private final PointService pointService;
 
-    public TagController(TagService tagService, TrailService trailService) {
+    public TagController(TagService tagService, TrailService trailService, PointService pointService) {
         this.tagService = tagService;
         this.trailService = trailService;
+        this.pointService = pointService;
     }
 
 
@@ -101,18 +104,15 @@ public class TagController {
     @GetMapping("/update/{id}")
     public String showEditTagForm(@PathVariable Long id, Model model) {
         Tag tag = tagService.findTagById(id);
-        List<Trail> allTrails = trailService.getAllTrails();
 
         // DTO z aktualnymi danymi
-        TagDTO tagDTO = TagDTO.builder()
+        TagDTO trailDTO = TagDTO.builder()
                 .tagName(tag.getName())
                 .tagDescription(tag.getDescription())
                 .tagTrailIds(tag.getTrails().stream().map(Trail::getId).toList())
                 .build();
 
-        model.addAttribute("tagId", id);
-        model.addAttribute("tagDTO", tagDTO);
-        model.addAttribute("trailList", allTrails);
+        model.addAttribute("tagDTO", trailDTO);
 
         return "tag-update";
     }
