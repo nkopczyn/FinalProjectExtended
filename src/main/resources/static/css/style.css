@@ -106,6 +106,14 @@ hr {
     margin: 32px 0;
 }
 
+/*CZERWONY ERROR*/
+.red-error {
+    color : red;
+    font-weight: bold;
+}
+
+
+
 /* TYTUŁ DLA DISPLAY-ID */
 
 .bolded-green-title {

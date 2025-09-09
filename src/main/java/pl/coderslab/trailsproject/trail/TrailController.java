@@ -180,7 +180,7 @@ public class TrailController {
                                     Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "trail-add"; // jesli sa bledy w formularzu
+            return "trail-add"; // jesli sa bledy w formularzu, binding result działa z @Valid
         }
 
         // funkcja z PointService która zamienia objekty PointDTO nan Point

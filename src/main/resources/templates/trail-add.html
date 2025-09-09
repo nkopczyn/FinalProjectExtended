@@ -13,28 +13,39 @@
     <form th:action="@{/trails/add-form}" th:object="${trailDTO}" method="post" class="styled-form">
 
         <legend> Podaj nazwę szlaku: </legend>
-        <input type="text" id="trailName" name="trailName" required>
+        <input type="text" id="trailName" name="trailName">
+        <div th:if="${#fields.hasErrors('trailName')}" th:errors="*{trailName}" class="red-error"></div>
 
         <legend> Podaj nazwę pasma górskiego: </legend>
-        <input type="text" id="mountRangeName" name="mountRangeName" required><br><br>
+        <input type="text" th:field="*{mountRangeName}"><br>
+        <div th:if="${#fields.hasErrors('mountRangeName')}" th:errors="*{mountRangeName}" class="red-error"></div>
 
         <fieldset>
             <legend>Punkt startowy</legend>
-            <label for="startLatitude">Szerokość geograficzna:</label>
-            <input type="number" id="startLatitude" name="startPoint.latitude" step="any" required><br>
-            <label for="startLongitude">Długość geograficzna:</label>
-            <input type="number" id="startLongitude" name="startPoint.longitude" step="any" required><br>
+
+            <legend>Szerokość geograficzna:</legend>
+            <input type="number" th:field="*{startPoint.latitude}" step="any" ><br>
+            <div th:if="${#fields.hasErrors('startPoint.latitude')}" th:errors="*{startPoint.latitude}" class="red-error"></div>
+
+            <legend>Długość geograficzna:</legend>
+            <input type="number" th:field="*{startPoint.longitude}" step="any" ><br>
+            <div th:if="${#fields.hasErrors('startPoint.longitude')}" th:errors="*{startPoint.longitude}" class="red-error"></div>
+
         </fieldset>
         <br>
 
         <fieldset>
             <legend>Punkt końcowy</legend>
-            <label for="endLatitude">Szerokość geograficzna:</label>
-            <input type="number" id="endLatitude" name="endPoint.latitude" step="any" required><br>
-            <label for="endLongitude">Długość geograficzna:</label>
-            <input type="number" id="endLongitude" name="endPoint.longitude" step="any" required><br>
+            <label>Szerokość geograficzna:</label>
+            <input type="number" th:field="*{endPoint.latitude}" step="any">
+            <div th:if="${#fields.hasErrors('endPoint.latitude')}" th:errors="*{endPoint.latitude}" class="red-error"></div>
+
+            <label>Długość geograficzna:</label>
+            <input type="number" th:field="*{endPoint.longitude}" step="any">
+            <div th:if="${#fields.hasErrors('endPoint.longitude')}" th:errors="*{endPoint.longitude}" class="red-error"></div>
         </fieldset>
         <br>
+
 
         <button type="submit">Dodaj</button>
     </form>

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.trailsproject.NoTrailsAvailableException;
 import pl.coderslab.trailsproject.TagNotFoundException;
@@ -58,7 +59,13 @@ public class TagController {
 
     @PostMapping("/add-form")
     public String addTagFromForm(@ModelAttribute("tagDTO") @Valid TagDTO tagRequest,
+                                 BindingResult bindingResult,
                                  Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("trailList", trailService.getAllTrails());
+            return "tag-add";
+        }
 
         String tagName = tagRequest.getTagName();
         String tagDescription = tagRequest.getTagDescription();
@@ -92,6 +99,7 @@ public class TagController {
 
         return "redirect:/tags/all";
     }
+
 
     @GetMapping("/add-form")
     public String showAddTagForm(Model model) {

@@ -1,5 +1,6 @@
 package pl.coderslab.trailsproject.trail;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -18,9 +19,11 @@ public class TrailDTO {
     @NotBlank(message = "Trail name is required")
     private String trailName;
 
+    @Valid
     @NotNull(message = "Trail start point is required")
     private PointDTO startPoint;
 
+    @Valid
     @NotNull(message = "Trail end point is required")
     private PointDTO endPoint;
 
