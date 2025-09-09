@@ -2,79 +2,70 @@
 <html lang=pl xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lista szlaków</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Lista szlaków turystycznych</h1>
-<h4>Punkty przedstawione w formacie: długość, szerokość geograficzna</h4>
-<table border="1">
-    <thead>
-    <tr>
-        <th>  ID  </th>
-        <th>  Nazwa szlaku  </th>
-        <th>  Długość (km)  </th>
-        <th>  Kategoria  </th>
-        <th>  Pasma górskie  </th>
-        <th>  Punkt startowy  </th>
-        <th>  Punkt końcowy  </th>
-        <th> Akcja </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="trail : ${trails}">
-        <td th:text="${trail.id}"></td>
-        <td th:text="${trail.name}"></td>
-        <td th:text="${trail.length}"></td>
-        <td th:text="${trail.category.intensity}"></td>
-        <td th:text="${trail.mountRange.name}"></td>
-        <td th:text="${trail.start.longitude} + ', ' + ${trail.start.latitude}"></td>
-        <td th:text="${trail.finish.longitude} + ', ' + ${trail.finish.latitude}"></td>
-        <td>
-            <a th:href="@{/trails/update-form/{id}(id=${trail.id})}">Edytuj</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="centered-container">
+    <h1>Lista szlaków turystycznych</h1>
+    <h4>Punkty przedstawione w formacie: długość, szerokość geograficzna</h4>
+    <table>
+        <thead>
+        <tr>
+            <th> ID</th>
+            <th> Nazwa szlaku</th>
+            <th> Długość (km)</th>
+            <th> Kategoria</th>
+            <th> Pasma górskie</th>
+            <th> Punkt startowy</th>
+            <th> Punkt końcowy</th>
+            <th> Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trail : ${trails}">
+            <td th:text="${trail.id}"></td>
+            <td th:text="${trail.name}"></td>
+            <td th:text="${trail.length}"></td>
+            <td th:text="${trail.category.intensity}"></td>
+            <td th:text="${trail.mountRange.name}"></td>
+            <td th:text="${trail.start.longitude} + ', ' + ${trail.start.latitude}"></td>
+            <td th:text="${trail.finish.longitude} + ', ' + ${trail.finish.latitude}"></td>
+            <td>
+                <a th:href="@{/trails/update-form/{id}(id=${trail.id})}">Edytuj</a>
+                <a th:href="@{/trails/delete-by-id/{id}(id=${trail.id})}">Usuń</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<br>
+    <br>
 
-<h4> Wyszukiwarka </h4>
+    <h4> Wyszukiwarka </h4>
 
-<form th:action="@{/trails/find-by-id}" method="get">
-    <label for="trailId">Podaj numer szlaku który chcesz wyświetlić:</label>
-    <input type="number" id="trailId" name="trailId" required>
-    <button type="submit">Wyświetl szlak</button>
-</form>
+    <form th:action="@{/trails/find-by-id}" method="get">
+        <label for="trailId">Podaj numer szlaku który chcesz wyświetlić:</label>
+        <input type="number" id="trailId" name="trailId" required>
+        <button type="submit">Wyświetl szlak</button>
+    </form>
 
-<br>
+    <br>
 
-<form th:action="@{/trails/delete-by-id}" method="get">
-    <label for="trailIdDel">Podaj numer szlaku który chcesz usunąć:</label>
-    <input type="number" id="trailIdDel" name="trailIdDel" required>
-    <button type="submit">Usuń szlak</button>
-</form>
+    <form th:action="@{/trails/find-by-cat}" method="get">
+        <label for="cat">Podaj nazwę kategorii dla której chcesz wyświetlić szlaki:</label>
+        <input type="text" id="cat" name="cat" required>
+        <button type="submit"> Szukaj po kategorii</button>
+    </form>
 
-<br>
+    <br>
 
-<form th:action="@{/trails/find-by-cat}" method="get">
-    <label for="cat">Podaj nazwę kategorii dla której chcesz wyświetlić szlaki:</label>
-    <input type="text" id="cat" name="cat" required>
-    <button type="submit">Szukaj</button>
-</form>
+    <h4> Dodatkowe </h4>
 
-<br>
+    <div class="links-center">
+        <a th:href="@{/trails/add-form}" class="btn"> Dodaj szlak </a>
+        <a th:href="@{/trails/summary}"> Wyświetl podsumowanie </a>
+        <a th:href="@{/tags/all}"> Wyświetl tagi </a>
+    </div>
 
-<h4> Linki  </h4>
-
-<a th:href="@{/trails/add-form}"> Dodaj szlak </a>
-
-<br>
-
-<a th:href="@{/trails/summary}"> Wyświetl podsumowanie </a>
-
-<br>
-
-<a th:href="@{/tags/all}"> Wyświetl tagi </a>
-
-
+</div>
 </body>
 </html>

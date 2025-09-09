@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Dodaj szlak</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="centered-container">
 
-<h3 th:text="'Dodaj nowy szlak'"></h3>
+    <h1 th:text="'Dodaj nowy szlak'"></h1>
 
-<form th:action="@{/trails/add-form}" th:object="${trailDTO}" method="post">
+    <form th:action="@{/trails/add-form}" th:object="${trailDTO}" method="post" class="styled-form">
 
-  <label for="trailName">Podaj nazwę szlaku:</label>
-  <input type="text" id="trailName" name="trailName" required>
+        <legend> Podaj nazwę szlaku: </legend>
+        <input type="text" id="trailName" name="trailName" required>
 
-  <label for="mountRangeName">Podaj nazwę pasma górskiego:</label>
-  <input type="text" id="mountRangeName" name="mountRangeName" required><br><br>
+        <legend> Podaj nazwę pasma górskiego: </legend>
+        <input type="text" id="mountRangeName" name="mountRangeName" required><br><br>
 
-  <fieldset>
-    <legend>Punkt startowy</legend>
-    <label for="startLatitude">Szerokość geograficzna:</label>
-    <input type="number" id="startLatitude" name="startPoint.latitude" step="any" required><br>
-    <label for="startLongitude">Długość geograficzna:</label>
-    <input type="number" id="startLongitude" name="startPoint.longitude" step="any" required><br>
-  </fieldset>
-  <br>
+        <fieldset>
+            <legend>Punkt startowy</legend>
+            <label for="startLatitude">Szerokość geograficzna:</label>
+            <input type="number" id="startLatitude" name="startPoint.latitude" step="any" required><br>
+            <label for="startLongitude">Długość geograficzna:</label>
+            <input type="number" id="startLongitude" name="startPoint.longitude" step="any" required><br>
+        </fieldset>
+        <br>
 
-  <fieldset>
-    <legend>Punkt końcowy</legend>
-    <label for="endLatitude">Szerokość geograficzna:</label>
-    <input type="number" id="endLatitude" name="endPoint.latitude" step="any" required><br>
-    <label for="endLongitude">Długość geograficzna:</label>
-    <input type="number" id="endLongitude" name="endPoint.longitude" step="any" required><br>
-  </fieldset>
-  <br>
+        <fieldset>
+            <legend>Punkt końcowy</legend>
+            <label for="endLatitude">Szerokość geograficzna:</label>
+            <input type="number" id="endLatitude" name="endPoint.latitude" step="any" required><br>
+            <label for="endLongitude">Długość geograficzna:</label>
+            <input type="number" id="endLongitude" name="endPoint.longitude" step="any" required><br>
+        </fieldset>
+        <br>
 
-  <button type="submit">Dodaj</button>
-</form>
+        <button type="submit">Dodaj</button>
+    </form>
 
+</div>
 </body>
 </html>

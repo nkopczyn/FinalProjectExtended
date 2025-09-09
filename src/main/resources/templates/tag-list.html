@@ -3,46 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista tagów</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="centered-container">
 
-<h4> List tagów dla szlaków w kolekcji </h4>
-<table border="1">
-  <thead>
-  <tr>
-    <th>  ID  </th>
-    <th>  Nazwa  </th>
-    <th>  Opis </th>
-    <th>  Szlaki </th>
-    <th> Akcje </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="tag : ${tags}">
-    <td th:text="${tag.id}"></td>
-    <td th:text="${tag.name}"></td>
-    <td th:text="${tag.description}"></td>
-    <td>
-      <span th:each="trail : ${tag.trails}" th:text="${trail.id} + ' '"></span>
-    </td>
+    <h4> List tagów dla szlaków w kolekcji </h4>
+    <table border="1">
+        <thead>
+        <tr>
+            <th> ID</th>
+            <th> Nazwa</th>
+            <th> Opis</th>
+            <th> Szlaki</th>
+            <th> Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tag : ${tags}">
+            <td th:text="${tag.id}"></td>
+            <td th:text="${tag.name}"></td>
+            <td th:text="${tag.description}"></td>
+            <td>
+                <span th:each="trail : ${tag.trails}" th:text="${trail.id} + ' '"></span>
+            </td>
 
-    <td>
-      <a th:href="@{/tags/get/{id}(id=${tag.id})}">Zobacz</a>
-      <a th:href="@{/tags/update/{id}(id=${tag.id})}">Edytuj</a>
-      <a th:href="@{/tags/delete/{id}(id=${tag.id})}">Usuń</a>
-      <a th:href="@{/tags/longest-trail/{id}(id=${tag.id})}">Najdłuższy szlak</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+            <td>
+                <a th:href="@{/tags/get/{id}(id=${tag.id})}">Zobacz</a>
+                <a th:href="@{/tags/update/{id}(id=${tag.id})}">Edytuj</a>
+                <a th:href="@{/tags/delete/{id}(id=${tag.id})}">Usuń</a>
+                <a th:href="@{/tags/longest-trail/{id}(id=${tag.id})}">Najdłuższy szlak</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<br>
+    <br>
 
-<a th:href="@{/tags/add-form}"> Dodaj tag </a>
+    <a th:href="@{/tags/add-form}"> Dodaj tag </a>
 
-<br>
-
-<a th:href="@{/trails/all}"> Powrót do listy szlaków </a>
-
+    <a th:href="@{/trails/all}"> Powrót do listy szlaków </a>
+</div>
 </body>
 </html>

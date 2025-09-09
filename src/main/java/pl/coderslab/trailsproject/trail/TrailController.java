@@ -110,9 +110,9 @@ public class TrailController {
         return "redirect:/trails/get/" + trailId;
     }
 
-    @GetMapping("/delete-by-id")
-    public String deleteTrailById(@RequestParam Long trailIdDel) {
-        return "redirect:/trails/delete/" + trailIdDel;
+    @GetMapping("/delete-by-id/{id}")
+    public String deleteTrailById(@PathVariable Long id) {
+        return "redirect:/trails/delete/" + id;
     }
 
     @PostMapping("/update-form/{trailId}")
