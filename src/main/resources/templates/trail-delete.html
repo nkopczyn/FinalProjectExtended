@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Szlak usunięty</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h3 th:text="|Szlak o numerze ${trailId} został usunięty.|"></h3>
 
-<a th:href="@{/trails/all}">Powrót do listy szlaków</a>
+<div class="centered-container">
 
+    <h3 th:text="|Szlak o numerze ${trailId} został usunięty.|"></h3>
+
+    <a th:href="@{/trails/all}">Powrót do listy szlaków</a>
+
+</div>
 </body>
 </html>

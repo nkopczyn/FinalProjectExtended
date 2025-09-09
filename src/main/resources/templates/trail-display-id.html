@@ -2,16 +2,28 @@
 <html lang=pl xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Szlak </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h3 th:text="|Szlak numer ${result.id}:|"></h3>
-<p th:text="|Nazwa: ${result.name}|"></p>
-<p th:text="|Długośc: ${result.length} km|"></p>
-<p th:text="|Kategoria: ${result.category.intensity}|"></p>
-<p th:text="|Pasmo górskie: ${result.mountRange.name}|"></p>
+<div class="centered-container">
+
+    <h2 th:text="|Trail numer ${result.id}:|"></h2>
+
+    <p th:text="'Nazwa:'" class="bolded-green-title"></p>
+    <p th:text="|${result.name}|"></p>
+
+    <p th:text="'Długość:'" class="bolded-green-title"></p>
+    <p th:text="|${result.length}|"></p>
+
+    <p th:text="'Kategoria:'" class="bolded-green-title"></p>
+    <p th:text="|${result.category.intensity}|"></p>
+
+    <p th:text="'Pasmo górskie:'" class="bolded-green-title"></p>
+    <p th:text="|${result.mountRange.name}|"></p>
 
 <a th:href="@{/trails/all}">Powrót do listy szlaków</a>
 
+</div>
 </body>
 </html>

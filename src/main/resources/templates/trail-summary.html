@@ -2,24 +2,35 @@
 <html lang=pl xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Podsumowanie</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Podsumowanie</h1>
-<h4>Podsumowanie kolekcji szlaków:</h4>
 
-<p th:text="'Łączna liczba szlaków: ' + ${numberOfTrails}"></p>
-<p th:text="|Łączna długość szlaków: ${totalLength} km|"></p>
-<p th:text="|Średnia długość szlaku: ${averageLength} km|"></p>
-<p th:text="|Liczba odrębnych pasm górskich w kolekcji: ${distinctMountRanges}|"></p>
+<div class="centered-container">
 
-<p th:text="|Liczba szlaków o danej kategorii trudności: |"></p>
-<ul>
-    <li th:text="|Easy: ${countEasy}|"></li>
-    <li th:text="|Medium: ${countMedium}|"></li>
-    <li th:text="|Hard: ${countHard}|"></li>
-</ul>
+<h2>Podsumowanie</h2>
+
+    <p th:text="'Łączna liczba szlaków:'" class="bolded-green-title"></p>
+    <p th:text="|${numberOfTrails}|"></p>
+
+    <p th:text="'Średnia długość szlaku:'" class="bolded-green-title"></p>
+    <p th:text="|${averageLength}|"></p>
+
+    <p th:text="'Liczba pasm górskich w kolekcji:'" class="bolded-green-title"></p>
+    <p th:text="|${distinctMountRanges}|"></p>
+
+    <p th:text="'Liczba szlaków od danej kategorii trudności:'" class="bolded-green-title"></p>
+    <ul>
+        <li th:text="|Easy: ${countEasy}|"></li>
+        <li th:text="|Medium: ${countMedium}|"></li>
+        <li th:text="|Hard: ${countHard}|"></li>
+    </ul>
+
+    <br>
 
 <a th:href="@{/trails/all}">Powrót do listy szlaków</a>
+
+</div>
 
 </body>
 </html>

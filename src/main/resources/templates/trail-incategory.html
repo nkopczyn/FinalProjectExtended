@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Szlaki w kategorii</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="centered-container">
 
-<h2 th:text="|Dostępne szlaki dla kategorii ${category}|"></h2>
+    <h2 th:text="|Dostępne szlaki dla kategorii ${category}|"></h2>
 
-<ol>
-        <li th:each="trail : ${trails}" >
+    <ol>
+        <li th:each="trail : ${trails}">
             Szlak numer <span th:text="${trail.id}"></span> o nazwie <span th:text="${trail.name}"></span>
             <a th:href="@{/trails/get/{id}(id=${trail.id})}">Zobacz</a>
         </li>
-</ol>
+    </ol>
 
-<a th:href="@{/trails/all}">Powrót do listy szlaków</a>
+    <br>
 
+    <a th:href="@{/trails/all}">Powrót do listy szlaków</a>
+
+</div>
 </body>
 </html>

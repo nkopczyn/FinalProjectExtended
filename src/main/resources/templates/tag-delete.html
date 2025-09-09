@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Tag usunięty</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h3 th:text="|Tag o numerze ${tagId} został usunięty.|"></h3>
+<div class="centered-container">
 
-<a th:href="@{/tags/all}">Powrót do listy tagów</a>
+    <h2 th:text="|Tag o numerze ${tagId} został usunięty.|"></h2>
 
+    <a th:href="@{/tags/all}">Powrót do listy tagów</a>
+
+</div>
 </body>
 </html>
