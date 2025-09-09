@@ -101,9 +101,9 @@ public class TagController {
     }
 
 
-    @GetMapping("/update/{id}")
-    public String showEditTagForm(@PathVariable Long id, Model model) {
-        Tag tag = tagService.findTagById(id);
+    @GetMapping("/update/{tagId}")
+    public String showEditTagForm(@PathVariable Long tagId, Model model) {
+        Tag tag = tagService.findTagById(tagId);
 
         // DTO z aktualnymi danymi
         TagDTO trailDTO = TagDTO.builder()
@@ -113,6 +113,8 @@ public class TagController {
                 .build();
 
         model.addAttribute("tagDTO", trailDTO);
+        model.addAttribute("tagId", tagId);
+        model.addAttribute("trailList", trailService.getAllTrails());
 
         return "tag-update";
     }
@@ -128,7 +130,15 @@ public class TagController {
         List<Long> trailIds = tagRequest.getTagTrailIds();
 
         List<Trail> tagTrails = trailService.findAllByIds(trailIds);
-        tag.setTrails(tagTrails);
+
+        // Usuwanie tagu z szlaków, które zostały odznaczone
+        List<Trail> oldTrails = new ArrayList<>(tag.getTrails());
+        for (Trail oldTrail : oldTrails) {
+            if (!trailIds.contains(oldTrail.getId())) {
+                oldTrail.getTags().remove(tag);
+                trailService.addTrail(oldTrail);
+            }
+        }
 
         for (Trail trail : tagTrails) {
             if (trail.getTags() == null) {
@@ -140,6 +150,7 @@ public class TagController {
             trailService.addTrail(trail);
         }
 
+        tag.setTrails(tagTrails);
         tagService.save(tag);
 
         return "redirect:/tags/all";
