@@ -3,21 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Tag</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="centered-container">
 
-<h3 th:text="|Tag numer ${tagId}:|"></h3>
-<p th:text="|Nazwa: ${result.name}|"></p>
-<p th:text="|Opis: ${result.description}|"></p>
-<p>Szlaki:</p>
-<ul>
-    <li th:each="trail : ${result.trails}" >
-        Szlak numer <span th:text="${trail.id}"></span> o nazwie <span th:text="${trail.name}"></span>
-        <a th:href="@{/trails/get/{id}(id=${trail.id})}">Zobacz</a>
-    </li>
-</ul>
+    <h2 th:text="|Tag numer ${tagId}:|"></h2>
 
-<a th:href="@{/tags/all}">Powrót do listy tagów</a>
+    <p th:text="'Nazwa:'" class="bolded-green-title"></p>
+    <p th:text="|${result.name}|"></p>
 
+    <p th:text="'Opis:'" class="bolded-green-title"></p>
+    <p th:text="|${result.description}|"></p>
+
+    <p th:text="'Szlaki:'" class="bolded-green-title"></p>
+    <ul>
+        <li th:each="trail : ${result.trails}">
+            Szlak numer <span th:text="${trail.id}"></span> o nazwie <span th:text="${trail.name}"></span>
+            <a th:href="@{/trails/get/{id}(id=${trail.id})}">Zobacz</a>
+        </li>
+    </ul>
+
+    <br>
+
+    <a th:href="@{/tags/all}">Powrót do listy tagów</a>
+
+</div>
 </body>
 </html>

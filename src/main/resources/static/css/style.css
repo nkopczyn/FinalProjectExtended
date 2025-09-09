@@ -106,6 +106,16 @@ hr {
     margin: 32px 0;
 }
 
+/* TYTUŁ DLA DISPLAY-ID */
+
+.bolded-green-title {
+    font-family: var(--heading-font);
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
 /* LINKI WYŚRODKOWANE */
 
 .links-center {
