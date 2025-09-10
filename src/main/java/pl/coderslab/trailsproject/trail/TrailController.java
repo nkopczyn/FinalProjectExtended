@@ -123,7 +123,11 @@ public class TrailController {
                                     Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "trail-update"; // jesli sa bledy w formularzu
+            if (trailRequest.getId() == null) {
+                trailRequest.setId(trailId);
+            }
+            model.addAttribute("trailDTO", trailRequest);
+            return "trail-update";
         }
 
         // funkcja z PointService która zamienia objekty PointDTO nan Point
