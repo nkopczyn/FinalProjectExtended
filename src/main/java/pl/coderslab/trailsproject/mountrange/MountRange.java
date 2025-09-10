@@ -17,5 +17,4 @@ public class MountRange {
     private Long id;
     private String name;
 
-    // private List<Trail> trails;
 }

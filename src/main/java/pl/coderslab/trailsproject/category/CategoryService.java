@@ -13,7 +13,6 @@ public class CategoryService {
 
     public Category findByIntensity(String intensity) {
         return categoryRepository.findByIntensity(intensity);
-
     }
 
 

@@ -21,12 +21,10 @@ import java.util.List;
 public class TagController {
     private final TagService tagService;
     private final TrailService trailService;
-    private final PointService pointService;
 
-    public TagController(TagService tagService, TrailService trailService, PointService pointService) {
+    public TagController(TagService tagService, TrailService trailService) {
         this.tagService = tagService;
         this.trailService = trailService;
-        this.pointService = pointService;
     }
 
 

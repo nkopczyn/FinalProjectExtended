@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MountRangeService {
-    private MountRangeRepository mountRangeRepository;
+    private final MountRangeRepository mountRangeRepository;
 
     public MountRangeService(MountRangeRepository mountRangeRepository) {
         this.mountRangeRepository = mountRangeRepository;

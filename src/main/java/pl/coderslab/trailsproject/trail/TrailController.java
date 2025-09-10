@@ -25,14 +25,11 @@ import static pl.coderslab.trailsproject.trail.TrailDTO.convertToDTO;
 @RequestMapping("/trails")
 public class TrailController {
     private final TrailService trailService;
-    private final CategoryService categoryService;
     private final PointService pointService;
     private final MountRangeService mountRangeService;
 
-    public TrailController(TrailService trailService, CategoryService categoryService,
-                           PointService pointService, MountRangeService mountRangeService) {
+    public TrailController(TrailService trailService, PointService pointService, MountRangeService mountRangeService) {
         this.trailService = trailService;
-        this.categoryService = categoryService;
         this.pointService = pointService;
         this.mountRangeService = mountRangeService;
     }
@@ -61,14 +58,13 @@ public class TrailController {
         int countMedium = 0;
         int countHard = 0;
 
-        List<String> categoriesCount = trails.stream().map(Trail::getCategory).map(Category::getIntensity).collect(Collectors.toList());
+        List<String> categoriesCount = trails.stream().map(Trail::getCategory).map(Category::getIntensity)
+                .collect(Collectors.toList());
         for (String cat : categoriesCount) {
-            if (cat.equals("easy")) {
-                countEasy++;
-            } else if (cat.equals("mid")) {
-                countMedium++;
-            } else if (cat.equals("hard")) {
-                countHard++;
+            switch (cat) {
+                case "easy" -> countEasy++;
+                case "mid" -> countMedium++;
+                case "hard" -> countHard++;
             }
         }
 
