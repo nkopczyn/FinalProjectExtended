@@ -129,7 +129,15 @@ public class TagController {
 
     @PostMapping("/update-form/{tagId}")
     public String updateTag(@PathVariable Long tagId,
-                            @ModelAttribute @Valid TagDTO tagRequest) {
+                            @ModelAttribute @Valid TagDTO tagRequest,
+                            BindingResult bindingResult,
+                            Model model) {
+
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("trailList", trailService.getAllTrails());
+            return "tag-update";
+        }
 
         Tag tag = tagService.findTagById(tagId);
         tag.setName(tagRequest.getTagName());

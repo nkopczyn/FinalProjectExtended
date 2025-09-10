@@ -17,7 +17,7 @@
         <div th:if="${#fields.hasErrors('trailName')}" th:errors="*{trailName}" class="red-error"></div>
 
         <legend> Podaj nazwę pasma górskiego: </legend>
-        <input type="text" th:field="*{mountRangeName}"><br>
+        <input type="text" th:field="*{mountRangeName}">
         <div th:if="${#fields.hasErrors('mountRangeName')}" th:errors="*{mountRangeName}" class="red-error"></div>
 
         <fieldset>

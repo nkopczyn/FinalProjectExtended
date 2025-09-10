@@ -13,10 +13,12 @@
 <form th:action="@{/tags/update-form/{id}(id=${tagId})}" th:object="${tagDTO}" method="post" class="styled-form">
 
   <legend>Podaj nazwę tagu:</legend>
-  <input type="text" id="tagName" th:field="*{tagName}" required>
+  <input type="text" id="tagName" th:field="*{tagName}" >
+  <div th:if="${#fields.hasErrors('tagName')}" th:errors="*{tagName}" class="red-error"></div>
 
   <legend>Podaj opis:</legend>
-  <input type="text" id="tagDescription" th:field="*{tagDescription}" required>
+  <input type="text" id="tagDescription" th:field="*{tagDescription}" >
+  <div th:if="${#fields.hasErrors('tagDescription')}" th:errors="*{tagDescription}" class="red-error"></div>
 
   <legend>Wybierz szlaki zawierające ten tag:</legend>
   <div th:each="trail : ${trailList}">
