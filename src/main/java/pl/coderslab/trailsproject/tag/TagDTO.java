@@ -1,6 +1,5 @@
 package pl.coderslab.trailsproject.tag;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -20,6 +19,6 @@ public class TagDTO {
     private String tagDescription;
 
     private List<Long> tagTrailIds;
-    // list of Id's of trails that will have this tag
+    // lista Id szlaków, które będą miały ten tag
 
 }

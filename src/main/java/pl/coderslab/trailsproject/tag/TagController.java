@@ -55,6 +55,8 @@ public class TagController {
         return "tag-delete";
     }
 
+    // DODAWANIE
+
     @PostMapping("/add-form")
     public String addTagFromForm(@ModelAttribute("tagDTO") @Valid TagDTO tagRequest,
                                  BindingResult bindingResult,
@@ -85,7 +87,7 @@ public class TagController {
             if (trail.getTags() == null) {
                 trail.setTags(new ArrayList<>());
             }
-            trail.getTags().add(newTag); // add metoda z List
+            trail.getTags().add(newTag); // add - metoda z List
 
             if (newTag.getTrails() == null) {
                 newTag.setTrails(new ArrayList<>());
@@ -106,6 +108,7 @@ public class TagController {
         return "tag-add"; // nazwa widoku z formularzem
     }
 
+    // EDYCJA
 
     @GetMapping("/update/{tagId}")
     public String showEditTagForm(@PathVariable Long tagId, Model model) {
@@ -170,13 +173,14 @@ public class TagController {
         return "redirect:/tags/all";
     }
 
+    // DELETE
 
     // Wyświetlenie wszystkich tagów dla danego Trail
-    @GetMapping("/trails/{tagId}")
-    public List<Trail> getTrailsForTag(@PathVariable Long tagId) {
-        Tag tag = tagService.findTagById(tagId);
-        return tag.getTrails();
-    }
+//    @GetMapping("/trails/{tagId}")
+//    public List<Trail> getTrailsForTag(@PathVariable Long tagId) {
+//        Tag tag = tagService.findTagById(tagId);
+//        return tag.getTrails();
+//    }
 
     // Znalezienie najdłuższego Trail dla podanego tagu
     @GetMapping("/longest-trail/{tagId}")

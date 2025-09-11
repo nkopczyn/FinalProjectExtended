@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.coderslab.trailsproject.point.PointDTO;
 
-// ta klasa odzwierciedla co będzie przesyłane postem
 @Builder
 @Getter
 @Setter

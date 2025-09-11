@@ -34,8 +34,6 @@ public class TrailController {
         this.mountRangeService = mountRangeService;
     }
 
-
-
     @GetMapping("/all")
     public String showTrails(Model model) {
         List<Trail> trails = trailService.getAllTrails();
@@ -100,7 +98,7 @@ public class TrailController {
         return "trail-delete";
     }
 
-    // Przekierowywanie z linku do metody get id
+    // Przekierowywanie z wyszukiwarki do metody get/id
     @GetMapping("/find-by-id")
     public String findTrailFromForm(@RequestParam Long trailId) {
         return "redirect:/trails/get/" + trailId;
@@ -110,6 +108,8 @@ public class TrailController {
     public String deleteTrailById(@PathVariable Long id) {
         return "redirect:/trails/delete/" + id;
     }
+
+    // EDYCJA
 
     @PostMapping("/update-form/{trailId}")
     public String updateTrailFromForm (
@@ -139,7 +139,6 @@ public class TrailController {
         double length = trailService.calculateTrailLength(start, end);
         Category category = trailService.determineTrailCategory(length);
 
-        // ustawianie atrybutów
         Trail trail = new Trail();
         trail.setName(trailName);
         trail.setStart(start);
@@ -173,6 +172,8 @@ public class TrailController {
 
         return "trail-update";
     }
+
+    // DODAWANIE
 
     @PostMapping("/add-form")
     public String addTrailFromForm (@ModelAttribute("trailDTO") @Valid TrailDTO trailRequest,
@@ -216,6 +217,7 @@ public class TrailController {
         return "trail-add"; // nazwa widoku z formularzem
     }
 
+    // Wyszukiwarka po kategorii - przekierowanie
     @GetMapping("/find-by-cat")
     public String findCategoryFromForm(@RequestParam String cat) {
         return "redirect:/trails/category/" + cat;

@@ -24,12 +24,12 @@
         <fieldset>
             <legend>Punkt startowy</legend>
 
-            <legend>Szerokość geograficzna:</legend>
-            <input type="number" th:field="*{startPoint.latitude}" step="any" ><br>
+            <label>Szerokość geograficzna:</label>
+            <input type="number" th:field="*{startPoint.latitude}" step="any" >
             <div th:if="${#fields.hasErrors('startPoint.latitude')}" th:errors="*{startPoint.latitude}" class="red-error"></div>
 
-            <legend>Długość geograficzna:</legend>
-            <input type="number" th:field="*{startPoint.longitude}" step="any" ><br>
+            <label>Długość geograficzna:</label>
+            <input type="number" th:field="*{startPoint.longitude}" step="any" >
             <div th:if="${#fields.hasErrors('startPoint.longitude')}" th:errors="*{startPoint.longitude}" class="red-error"></div>
 
         </fieldset>
@@ -47,7 +47,7 @@
         </fieldset>
         <br>
 
-        <button type="submit">Edytuj</button>
+        <button type="submit">Zaktualizuj</button>
     </form>
 
 </div>

@@ -23,11 +23,11 @@
         <fieldset>
             <legend>Punkt startowy</legend>
 
-            <legend>Szerokość geograficzna:</legend>
+            <label>Szerokość geograficzna:</label>
             <input type="number" th:field="*{startPoint.latitude}" step="any" ><br>
             <div th:if="${#fields.hasErrors('startPoint.latitude')}" th:errors="*{startPoint.latitude}" class="red-error"></div>
 
-            <legend>Długość geograficzna:</legend>
+            <label>Długość geograficzna:</label>
             <input type="number" th:field="*{startPoint.longitude}" step="any" ><br>
             <div th:if="${#fields.hasErrors('startPoint.longitude')}" th:errors="*{startPoint.longitude}" class="red-error"></div>
 
