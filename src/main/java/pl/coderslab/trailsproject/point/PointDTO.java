@@ -9,14 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PointDTO {
-    @NotNull(message = "Latitude is required")
-    @DecimalMin(value = "-90.0", message = "Latitude value has to be >= -90")
-    @DecimalMax(value = "90.0", message = "Latitude value has to be <= 90")
+    @NotNull(message = "Podaj szerokość geograficzną")
+    @DecimalMin(value = "-90.0", message = "Szerokość geograficzna musi być większa niż -90")
+    @DecimalMax(value = "90.0", message = "Szerokość geograficzna być mniejsza niż 90")
     private double latitude;
 
-    @NotNull(message = "Longitude is required")
-    @DecimalMin(value = "-180.0", message = "Longitude value has to be >= -180")
-    @DecimalMax(value = "180.0", message = "Longitude value has to be <= 180")
+    @NotNull(message = "Podaj długość geograficzną")
+    @DecimalMin(value = "-180.0", message = "Długość geograficzna musi być większa niż -180")
+    @DecimalMax(value = "180.0", message = "Długość geograficzna musi być mniejsza niż 180")
     private double longitude;
 
     public PointDTO(Double latitude,

@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TagDTO {
 
-    @NotBlank(message = "Tag name cannot be empty")
+    @NotBlank(message = "Szlak musi mieć nazwę")
     private String tagName;
 
-    @Size(max = 100, message = "Description cannot be longer than 100 characters")
+    @Size(max = 100, message = "Opis nie może być dłuższy niż 100 znaków")
     private String tagDescription;
 
     private List<Long> tagTrailIds;
