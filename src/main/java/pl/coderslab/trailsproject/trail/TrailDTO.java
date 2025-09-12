@@ -15,18 +15,18 @@ import pl.coderslab.trailsproject.point.PointDTO;
 public class TrailDTO {
     private Long id;
 
-    @NotBlank(message = "Trail name is required")
+    @NotBlank(message = "Szlak musi mieć nazwę")
     private String trailName;
 
     @Valid
-    @NotNull(message = "Trail start point is required")
+    @NotNull(message = "Wpisz punkt początkowy")
     private PointDTO startPoint;
 
     @Valid
-    @NotNull(message = "Trail end point is required")
+    @NotNull(message = "Wpisz punkt końcowy")
     private PointDTO endPoint;
 
-    @NotBlank(message = "Mountain range for trail needs to be specified")
+    @NotBlank(message = "Określ pasmo górskie")
     private String mountRangeName;
 
 
